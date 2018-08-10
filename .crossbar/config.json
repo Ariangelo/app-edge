@@ -37,17 +37,6 @@
             "type": "tcp",
             "port": 8080
           },
-          "mqtt": {
-            "options": {
-              "realm": "crossbarRobotica",
-              "role": "anonymous",
-              "payload_mapping": {
-                "": {
-                  "type": "passthrough"
-                }
-              }
-            }
-          },
           "rawsocket": {
             "serializers": [
               "cbor",
