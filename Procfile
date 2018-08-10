@@ -1,1 +1,1 @@
-web: crossbar start
+web: crossbar start --log-level debug
