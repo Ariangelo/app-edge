@@ -32,6 +32,7 @@
       ],
       "transports": [
         {
+          "type": "mqtt",
           "endpoint": {
             "type": "tcp",
             "port": 1883
