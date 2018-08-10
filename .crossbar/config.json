@@ -1,5 +1,5 @@
 {
-  "version": 2,  
+  "version": 2,
   "workers": [
     {
       "type": "router",
@@ -31,17 +31,6 @@
         }
       ],
       "transports": [
-        {
-          "options": {
-            "realm": "crossbarRobotica",
-            "role": "anonymous",
-            "payload_mapping": {
-              "": {
-                "type": "passthrough"
-              }
-            }
-          }
-        },
         {
           "type": "universal",
           "endpoint": {
