@@ -20,7 +20,7 @@
                                         "subscribe": true
                                     },
                                     "disclose": {
-                                        "caller": false,
+                                        "caller": true,
                                         "publisher": false
                                     },
                                     "cache": true
@@ -75,7 +75,7 @@
               {
                   "type": "class",
                   "classname": "roteador.ControleBackend",
-                  "realm": "realm1",
+                  "realm": "crossbarRobotica",
                   "transport": {
                       "type": "websocket",
                       "endpoint": {
