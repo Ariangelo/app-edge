@@ -5,7 +5,7 @@
             "type": "router",
             "realms": [
                 {
-                    "name": "crossbarRobotica",
+                    "name": "realm1",
                     "roles": [
                         {
                             "name": "anonymous",
@@ -20,8 +20,8 @@
                                         "subscribe": true
                                     },
                                     "disclose": {
-                                        "caller": true,
-                                        "publisher": true
+                                        "caller": false,
+                                        "publisher": false
                                     },
                                     "cache": true
                                 }
@@ -32,28 +32,20 @@
             ],
             "transports": [
                 {
-                  "type": "web",
-                  "endpoint": {
-                      "type": "tcp",
-                      "port": "$PORT"
-                  },
-                  "paths": {
-                      "/": {
-                          "type": "static",
-                          "directory": "../web"
-                      },
-                      "ws": {
-                          "type": "websocket"
-                      },
-                      "call": {
-                        "type": "caller",
-                        "realm": "crossbarRobotica",
-                        "role": "anonymous",
-                        "options": {
-                          "debug": true
+                    "type": "web",
+                    "endpoint": {
+                        "type": "tcp",
+                        "port": "$PORT"
+                    },
+                    "paths": {
+                        "/": {
+                            "type": "static",
+                            "directory": "../web"
+                        },
+                        "ws": {
+                            "type": "websocket"
                         }
-                      }
-                  }
+                    }
                 },
                 {
                     "type": "websocket",
@@ -74,8 +66,8 @@
             "components": [
                 {
                     "type": "class",
-                    "classname": "roteador.ControleBackend",
-                    "realm": "crossbarRobotica",
+                    "classname": "hello.AppSession",
+                    "realm": "realm1",
                     "transport": {
                         "type": "websocket",
                         "endpoint": {
