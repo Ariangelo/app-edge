@@ -5,7 +5,7 @@
             "type": "router",
             "realms": [
                 {
-                    "name": "realm1",
+                    "name": "crossbarRobotica",
                     "roles": [
                         {
                             "name": "anonymous",
@@ -32,70 +32,61 @@
             ],
             "transports": [
               {
-                "type": "mqtt",
+                "type": "web",
                 "endpoint": {
                   "type": "tcp",
-                  "port": 1883
+                  "port": "$PORT"
                 },
-                "options": {
-                  "realm": "crossbarRobotica",
-                  "role": "anonymous",
-                  "payload_mapping": {
-                    "": {
-                      "type": "native",
-                      "serializer": "cbor"
+                "paths": {
+                    "/": {
+                      "type": "static",
+                      "directory": "../web"
+                    },
+                    "call": {
+                      "options": {
+                        "debug": true
+                      },
+                      "realm": "crossbarRobotica",
+                      "role": "anonymous",
+                      "type": "caller"
+                    },
+                    "ws": {
+                      "type": "websocket"
                     }
-                  }
                 }
               },
               {
-                    "type": "web",
-                    "endpoint": {
-                        "type": "tcp",
-                        "port": "$PORT"
-                    },
-                    "paths": {
-                        "/": {
-                            "type": "static",
-                            "directory": "../web"
-                        },
-                        "ws": {
-                            "type": "websocket"
-                        }
-                    }
-                },
-                {
-                    "type": "websocket",
-                    "endpoint": {
-                        "type": "tcp",
-                        "port": 9000
-                    }
+                "type": "websocket",
+                "endpoint": {
+                    "type": "tcp",
+                    "port": 9000
                 }
+              }
             ]
         },
         {
-            "type": "container",
-            "options": {
-                "pythonpath": [
-                    ".."
-                ]
-            },
-            "components": [
-                {
-                    "type": "class",
-                    "classname": "hello.AppSession",
-                    "realm": "realm1",
-                    "transport": {
-                        "type": "websocket",
-                        "endpoint": {
-                            "type": "tcp",
-                            "host": "127.0.0.1",
-                            "port": 9000
-                        },
-                        "url": "ws://127.0.0.1:9000/ws"
-                    }
-                }
-            ]
+          "type": "container",
+          "options": {
+              "pythonpath": [
+                  ".."
+              ]
+          },
+          "components": [
+              {
+                  "type": "class",
+                  "classname": "roteador.ControleBackend",
+                  "realm": "realm1",
+                  "transport": {
+                      "type": "websocket",
+                      "endpoint": {
+                          "type": "tcp",
+                          "host": "127.0.0.1",
+                          "port": 9000
+                      },
+                      "url": "ws://127.0.0.1:9000/ws"
+                  }
+              }
+          ]
         }
     ]
 }
