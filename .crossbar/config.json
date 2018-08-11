@@ -31,7 +31,24 @@
                 }
             ],
             "transports": [
-                {
+              {
+                "type": "mqtt",
+                "endpoint": {
+                  "type": "tcp",
+                  "port": 1883
+                },
+                "options": {
+                  "realm": "crossbarRobotica",
+                  "role": "anonymous",
+                  "payload_mapping": {
+                    "": {
+                      "type": "native",
+                      "serializer": "cbor"
+                    }
+                  }
+                }
+              },
+              {
                     "type": "web",
                     "endpoint": {
                         "type": "tcp",
