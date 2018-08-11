@@ -1,113 +1,92 @@
 {
-  "version": 2,
-  "workers": [
-    {
-      "type": "router",
-      "realms": [
+    "version": 2,
+    "workers": [
         {
-          "name": "crossbarRobotica",
-          "roles": [
-            {
-              "name": "anonymous",
-              "permissions": [
+            "type": "router",
+            "realms": [
                 {
-                  "uri": "",
-                  "match": "prefix",
-                  "allow": {
-                    "call": true,
-                    "register": true,
-                    "publish": true,
-                    "subscribe": true
-                  },
-                  "disclose": {
-                    "caller": true,
-                    "publisher": true
-                  },
-                  "cache": true
+                    "name": "crossbarRobotica",
+                    "roles": [
+                        {
+                            "name": "anonymous",
+                            "permissions": [
+                                {
+                                    "uri": "",
+                                    "match": "prefix",
+                                    "allow": {
+                                        "call": true,
+                                        "register": true,
+                                        "publish": true,
+                                        "subscribe": true
+                                    },
+                                    "disclose": {
+                                        "caller": true,
+                                        "publisher": true
+                                    },
+                                    "cache": true
+                                }
+                            ]
+                        }
+                    ]
                 }
-              ]
-            }
-          ]
-        }
-      ],
-      "transports": [
-        {
-          "type": "universal",
-          "endpoint": {
-            "type": "tcp",
-            "port": 9000
-          },
-          "rawsocket": {
-            "serializers": [
-              "cbor",
-              "msgpack",
-              "ubjson",
-              "json"
+            ],
+            "transports": [
+                {
+                  "type": "web",
+                  "endpoint": {
+                      "type": "tcp",
+                      "port": "$PORT"
+                  },
+                  "paths": {
+                      "/": {
+                          "type": "static",
+                          "directory": "../web"
+                      },
+                      "ws": {
+                          "type": "websocket"
+                      },
+                      "call": {
+                        "type": "caller",
+                        "realm": "crossbarRobotica",
+                        "role": "anonymous",
+                        "options": {
+                          "debug": true
+                        }
+                      }
+                  }
+                },
+                {
+                    "type": "websocket",
+                    "endpoint": {
+                        "type": "tcp",
+                        "port": 9000
+                    }
+                }
             ]
-          },
-          "websocket": {
-            "ws": {
-              "type": "websocket",
-              "serializers": [
-                "cbor",
-                "msgpack",
-                "ubjson",
-                "json"
-              ]
-            }
-          },
-          "web": {
-            "paths": {
-              "/": {
-                "type": "static",
-                "directory": "../web",
-                "options": {
-                  "enable_directory_listing": true
-                }
-              },
-              "ws": {
-                "type": "websocket",
-                "debug": true
-              },
-              "call": {
-                "type": "caller",
-                "realm": "crossbarRobotica",
-                "role": "anonymous",
-                "options": {
-                  "debug": true
-                }
-              }
-            }
-          }
-        }
-      ]
-    },
-    {
-      "type": "container",
-      "options": {
-        "pythonpath": [
-          ".."
-        ]
-      },
-      "components": [
+        },
         {
-          "type": "class",
-          "classname": "roteador.ControleBackend",
-          "realm": "crossbarRobotica",
-          "transport": {
-            "type": "websocket",
-            "endpoint": {
-              "type": "tcp",
-              "host": "localhost",
-              "port": 9000
-            },
-            "url": "ws://localhost:9000/ws",
+            "type": "container",
             "options": {
-              "enable_webstatus": false
-            }
-          }
+                "pythonpath": [
+                    ".."
+                ]
+            },
+            "components": [
+                {
+                    "type": "class",
+                    "classname": "roteador.ControleBackend",
+                    "realm": "crossbarRobotica",
+                    "transport": {
+                        "type": "websocket",
+                        "endpoint": {
+                            "type": "tcp",
+                            "host": "127.0.0.1",
+                            "port": 9000
+                        },
+                        "url": "ws://127.0.0.1:9000/ws"
+                    }
+                }
+            ]
         }
-      ]
-    }
-  ]
+    ]
 }
