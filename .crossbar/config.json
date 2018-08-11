@@ -62,6 +62,23 @@
                     "port": 9000
                 }
               }
+ {
+            "id": "mqtt-001",
+            "type": "mqtt",
+            "endpoint": {
+                "type": "tcp",
+                "port": 1883
+            },
+            "options": {
+                "realm": "realm1",
+                "role": "anonymous",
+                "payload_mapping": {
+                    "": {
+                        "type": "passthrough"
+                    }
+                }
+            }
+        }              
             ]
         },
         {
