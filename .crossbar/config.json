@@ -61,7 +61,7 @@
                     "type": "tcp",
                     "port": 9000
                 }
-              }
+              },
  {
             "id": "mqtt-001",
             "type": "mqtt",
