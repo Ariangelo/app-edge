@@ -21,7 +21,7 @@
                                     },
                                     "disclose": {
                                         "caller": true,
-                                        "publisher": false
+                                        "publisher": true
                                     },
                                     "cache": true
                                 }
