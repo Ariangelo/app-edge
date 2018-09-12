@@ -26,8 +26,8 @@ class ControleBackend(ApplicationSession):
       db = _db, 
       host = 'ds227119.mlab.com',
       port = 27119, 
-      username = 'xxxxxxxxx', 
-      password = 'xxxxxxxxx'
+      username = 'Ariangelo', 
+      password = 'Hubf1aEDGE'
     )
 
   def init(self):
@@ -46,7 +46,7 @@ class ControleBackend(ApplicationSession):
     }
     ''' 
 
-  @wamp.register(u'status')
+  @wamp.register(u'{}.status'.format(PREFIX))
   def submitStatus(self, subject):
     if self.statusDevice.get(subject) is None:
       self.statusDevice[subject] = {"d":{"o": [[0, 6, 0, 0], [1, 6, 0, 0], [2, 6, 0, 0]], "i": [[0, 13, 0, 1], [1, 13, 0, 1], [2, 13, 0, 1]]}}
