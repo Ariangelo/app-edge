@@ -35,11 +35,14 @@ class ControleBackend(ApplicationSession):
 
   def init(self):
     devices = [];
-    for device in Device.objects:
-      if device.enabled : 
-        self.statusDevice[device.mac] = device.status
-        devices.append(device.mac)
-    self.log.info('Dispositivos atualizados: {}'.format(devices))    
+    try:
+      for device in Device.objects:
+        if device.enabled : 
+          self.statusDevice[device.mac] = device.status
+          devices.append(device.mac)
+      self.log.info('Dispositivos atualizados: {}'.format(devices))    
+    except Exception as e:
+      self.log.info('Falha na conexão: {}'.format(e)) 
     
     '''
     self.statusDevice = {
