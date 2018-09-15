@@ -22,7 +22,6 @@ class ControleBackend(ApplicationSession):
     self.user = User()
     self.device = Device()
     self.statusDevice = {}
-    self.init()
 
   def mongoConnect(self, _db, _payload):
     self.client = connect(
@@ -54,6 +53,7 @@ class ControleBackend(ApplicationSession):
     self.payload = bson.BSON.decode(binascii.unhexlify(subject))
     self.log.info("login to: {}".format(self.payload[user]))
     self.mongoConnect('edge', payload)
+    self.init()
     return subject
 
   @wamp.register(u'{}.status'.format(PREFIX))
