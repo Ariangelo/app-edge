@@ -7,6 +7,7 @@ from twisted.internet.defer import inlineCallbacks
 
 from datetime import datetime
 from mongoengine import connect
+from array import array
 import bson
 
 from model import User, Device
@@ -49,7 +50,7 @@ class ControleBackend(ApplicationSession):
 
   @wamp.register(u'{}.login'.format(PREFIX))
   def submitLogin(self, subject):
-    arr = bytes(subject, 'utf-8')
+    arr = array('B', subject).tobytes()
     self.log.info("login : {}".format(arr))
     payload = bson.BSON.decode(arr)
     self.log.info(payload)
