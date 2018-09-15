@@ -27,8 +27,8 @@ class ControleBackend(ApplicationSession):
       db = _db, 
       host = 'ds227119.mlab.com',
       port = 27119, 
-      username = 'xx', 
-      password = 'xx'
+      username = 'Ariangelo', 
+      password = 'Hubf1aEDGE'
     )
 
   def init(self):
