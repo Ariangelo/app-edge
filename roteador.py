@@ -51,7 +51,7 @@ class ControleBackend(ApplicationSession):
   @wamp.register(u'{}.login'.format(PREFIX))
   def submitLogin(self, subject):
     self.payload = bson.BSON.decode(binascii.unhexlify(subject))
-    self.log.info("login to: {}".format(self.payload.get('user'))
+    self.log.info("login to: {}".format(self.payload.get('user')))
     self.mongoConnect('edge', payload)
     self.init()
     return subject
