@@ -49,9 +49,9 @@ class ControleBackend(ApplicationSession):
 
   @wamp.register(u'{}.login'.format(PREFIX))
   def submitLogin(self, subject):
-    s = str.encode(subject, 'ASCII')
-    self.log.info("login : {}".format(s))
-    payload = bson.BSON.decode(s)
+    arr = bytes(subject, 'utf-8')
+    self.log.info("login : {}".format(arr))
+    payload = bson.BSON.decode(arr)
     self.log.info(payload)
     return subject
 
