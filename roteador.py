@@ -24,14 +24,14 @@ class ControleBackend(ApplicationSession):
     self.statusDevice = {}
 
   def mongoConnect(self, _db):
-    self.log.info("login to: {}".format(self.payload))
-    self.client = connect(
+    client = connect(
       db = _db, 
       host = 'ds227119.mlab.com',
       port = 27119, 
       username = self.payload.get('user'), 
       password = self.payload.get('password')
     )
+    return client
 
   def init(self):
     devices = [];
@@ -52,8 +52,8 @@ class ControleBackend(ApplicationSession):
   @wamp.register(u'{}.login'.format(PREFIX))
   def submitLogin(self, subject):
     self.payload = bson.BSON.decode(binascii.unhexlify(subject))
-    self.log.info("login to: {}".format(self.payload.get('user')))
-    self.mongoConnect('edge')
+    client = self.mongoConnect('edge')
+    self.log.info("login to: {} - {}".format(self.payload.get('user'), client))
     self.init()
     return subject
 
