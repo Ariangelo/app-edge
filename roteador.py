@@ -23,13 +23,14 @@ class ControleBackend(ApplicationSession):
     self.device = Device()
     self.statusDevice = {}
 
-  def mongoConnect(self, _db, _payload):
+  def mongoConnect(self, _db):
+    self.log.info("login to: {}".format(self.payload))
     self.client = connect(
       db = _db, 
       host = 'ds227119.mlab.com',
       port = 27119, 
-      username = _payload.get('user'), 
-      password = _payload.get('password')
+      username = self.payload.get('user'), 
+      password = self.payload.get('password')
     )
 
   def init(self):
@@ -52,7 +53,7 @@ class ControleBackend(ApplicationSession):
   def submitLogin(self, subject):
     self.payload = bson.BSON.decode(binascii.unhexlify(subject))
     self.log.info("login to: {}".format(self.payload.get('user')))
-    self.mongoConnect('edge', self.payload)
+    self.mongoConnect('edge')
     self.init()
     return subject
 
