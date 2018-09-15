@@ -7,6 +7,7 @@ from twisted.internet.defer import inlineCallbacks
 
 from datetime import datetime
 from mongoengine import connect
+from bson import loads
 
 from model import User, Device
 
@@ -45,6 +46,13 @@ class ControleBackend(ApplicationSession):
       "8d6fef00": {"d": {"o": [[14, 0]], "i": [[-1, 1, 1, 1], [-1, 3, 1, 1], [-1, 15, 1, 1]]}}
     }
     ''' 
+
+  @wamp.register(u'{}.login'.format(PREFIX))
+  def submitLogin(self, subject):
+    self.log.info("login : {}".format(subject))
+    payload = loads(subject)
+    self.log.info(payload)
+    return subject
 
   @wamp.register(u'{}.status'.format(PREFIX))
   def submitStatus(self, subject):
