@@ -18,19 +18,19 @@ PREFIX = u'io.robotica.controle'
 class ControleBackend(ApplicationSession):
   def __init__(self, config):
     ApplicationSession.__init__(self, config)
-    self.mongoConnect('edge')
+    self.payload = {}
     self.user = User()
     self.device = Device()
     self.statusDevice = {}
     self.init()
 
-  def mongoConnect(self, _db):
+  def mongoConnect(self, _db, _payload):
     self.client = connect(
       db = _db, 
       host = 'ds227119.mlab.com',
       port = 27119, 
-      username = 'Ariangelo', 
-      password = 'Hubf1aEDGE'
+      username = _payload[user], 
+      password = _payload[password]
     )
 
   def init(self):
@@ -51,9 +51,9 @@ class ControleBackend(ApplicationSession):
 
   @wamp.register(u'{}.login'.format(PREFIX))
   def submitLogin(self, subject):
-    self.log.info("login : {}".format(binascii.unhexlify(subject)))
-    payload = bson.BSON.decode(binascii.unhexlify(subject))
-    self.log.info(payload)
+    self.payload = bson.BSON.decode(binascii.unhexlify(subject))
+    self.log.info("login to: {}".format(self.payload[user])
+    self.mongoConnect('edge', payload)
     return subject
 
   @wamp.register(u'{}.status'.format(PREFIX))
