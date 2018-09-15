@@ -52,7 +52,7 @@ class ControleBackend(ApplicationSession):
   def submitLogin(self, subject):
     self.payload = bson.BSON.decode(binascii.unhexlify(subject))
     self.log.info("login to: {}".format(self.payload.get('user')))
-    self.mongoConnect('edge', payload)
+    self.mongoConnect('edge', self.payload)
     self.init()
     return subject
 
