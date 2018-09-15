@@ -51,9 +51,7 @@ class ControleBackend(ApplicationSession):
   @wamp.register(u'{}.login'.format(PREFIX))
   def submitLogin(self, subject):
     self.log.info("login : {}".format(subject))
-    s = struct.Struct('4s')
-    packed_data = s.pack(subject.encode('utf-8'))
-    payload = bson.BSON.decode(packed_data)
+    payload = bson.BSON.decode(str.encode(subject))
     self.log.info(payload)
     return subject
 
