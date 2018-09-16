@@ -40,9 +40,11 @@ class ControleBackend(ApplicationSession):
         if device.enabled : 
           self.statusDevice[device.mac] = device.status
           devices.append(device.mac)
-      self.log.info('Dispositivos atualizados: {}'.format(devices))    
+      self.log.info('Dispositivos atualizados: {}'.format(devices))   
+      return True
     except Exception as e:
       self.log.info('Falha na conexão: {}'.format(e)) 
+      return False
     
     '''
     self.statusDevice = {
@@ -57,8 +59,7 @@ class ControleBackend(ApplicationSession):
     self.payload = bson.BSON.decode(binascii.unhexlify(subject))
     client = self.mongoConnect('edge')
     self.log.info("login to: {} - {}".format(self.payload.get('user'), client))
-    self.init()
-    return subject
+    return self.init()
 
   @wamp.register(u'{}.status'.format(PREFIX))
   def submitStatus(self, subject):
