@@ -13,7 +13,9 @@ class Device(Document):
   enabled = BooleanField()
   status = DictField()
   type = IntField()
+  infos = ListField()
   date = DateTimeField()
+  _class' = StringField()
   
 class Scene(Document):
   description = StringField()
