@@ -15,7 +15,7 @@ class Device(Document):
   type = IntField()
   infos = ListField()
   date = DateTimeField()
-  _class' = StringField()
+  _class = StringField()
   
 class Scene(Document):
   description = StringField()
